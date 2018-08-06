@@ -1,5 +1,5 @@
 /*
-	Future Imperfect by HTML5 UP
+	Hyperspace by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
@@ -8,9 +8,7 @@
 
 	var	$window = $(window),
 		$body = $('body'),
-		$menu = $('#menu'),
-		$sidebar = $('#sidebar'),
-		$main = $('#main');
+		$sidebar = $('#sidebar');
 
 	// Breakpoints.
 		breakpoints({
@@ -21,6 +19,10 @@
 			xsmall:   [ null,      '480px'  ]
 		});
 
+	// Hack: Enable IE flexbox workarounds.
+		if (browser.name == 'ie')
+			$body.addClass('is-ie');
+
 	// Play initial animations on page load.
 		$window.on('load', function() {
 			window.setTimeout(function() {
@@ -28,68 +30,161 @@
 			}, 100);
 		});
 
-	// Menu.
-		$menu
-			.appendTo($body)
-			.panel({
-				delay: 500,
-				hideOnClick: true,
-				hideOnSwipe: true,
-				resetScroll: true,
-				resetForms: true,
-				side: 'right',
-				target: $body,
-				visibleClass: 'is-menu-visible'
-			});
+	// Forms.
 
-	// Search (header).
-		var $search = $('#search'),
-			$search_input = $search.find('input');
+		// Hack: Activate non-input submits.
+			$('form').on('click', '.submit', function(event) {
 
-		$body
-			.on('click', '[href="#search"]', function(event) {
+				// Stop propagation, default.
+					event.stopPropagation();
+					event.preventDefault();
 
-				event.preventDefault();
-
-				// Not visible?
-					if (!$search.hasClass('visible')) {
-
-						// Reset form.
-							$search[0].reset();
-
-						// Show.
-							$search.addClass('visible');
-
-						// Focus input.
-							$search_input.focus();
-
-					}
+				// Submit form.
+					$(this).parents('form').submit();
 
 			});
 
-		$search_input
-			.on('keydown', function(event) {
+	// Sidebar.
+		if ($sidebar.length > 0) {
 
-				if (event.keyCode == 27)
-					$search_input.blur();
+			var $sidebar_a = $sidebar.find('a');
 
+			$sidebar_a
+				.addClass('scrolly')
+				.on('click', function() {
+
+					var $this = $(this);
+
+					// External link? Bail.
+						if ($this.attr('href').charAt(0) != '#')
+							return;
+
+					// Deactivate all links.
+						$sidebar_a.removeClass('active');
+
+					// Activate link *and* lock it (so Scrollex doesn't try to activate other links as we're scrolling to this one's section).
+						$this
+							.addClass('active')
+							.addClass('active-locked');
+
+				})
+				.each(function() {
+
+					var	$this = $(this),
+						id = $this.attr('href'),
+						$section = $(id);
+
+					// No section for this link? Bail.
+						if ($section.length < 1)
+							return;
+
+					// Scrollex.
+						$section.scrollex({
+							mode: 'middle',
+							top: '-20vh',
+							bottom: '-20vh',
+							initialize: function() {
+
+								// Deactivate section.
+									$section.addClass('inactive');
+
+							},
+							enter: function() {
+
+								// Activate section.
+									$section.removeClass('inactive');
+
+								// No locked links? Deactivate all links and activate this section's one.
+									if ($sidebar_a.filter('.active-locked').length == 0) {
+
+										$sidebar_a.removeClass('active');
+										$this.addClass('active');
+
+									}
+
+								// Otherwise, if this section's link is the one that's locked, unlock it.
+									else if ($this.hasClass('active-locked'))
+										$this.removeClass('active-locked');
+
+							}
+						});
+
+				});
+
+		}
+
+	// Scrolly.
+		$('.scrolly').scrolly({
+			speed: 1000,
+			offset: function() {
+
+				// If <=large, >small, and sidebar is present, use its height as the offset.
+					if (breakpoints.active('<=large')
+					&&	!breakpoints.active('<=small')
+					&&	$sidebar.length > 0)
+						return $sidebar.height();
+
+				return 0;
+
+			}
+		});
+
+	// Spotlights.
+		$('.spotlights > section')
+			.scrollex({
+				mode: 'middle',
+				top: '-10vh',
+				bottom: '-10vh',
+				initialize: function() {
+
+					// Deactivate section.
+						$(this).addClass('inactive');
+
+				},
+				enter: function() {
+
+					// Activate section.
+						$(this).removeClass('inactive');
+
+				}
 			})
-			.on('blur', function() {
-				window.setTimeout(function() {
-					$search.removeClass('visible');
-				}, 100);
+			.each(function() {
+
+				var	$this = $(this),
+					$image = $this.find('.image'),
+					$img = $image.find('img'),
+					x;
+
+				// Assign image.
+					$image.css('background-image', 'url(' + $img.attr('src') + ')');
+
+				// Set background position.
+					if (x = $img.data('position'))
+						$image.css('background-position', x);
+
+				// Hide <img>.
+					$img.hide();
+
 			});
 
-	// Intro.
-		var $intro = $('#intro');
+	// Features.
+		$('.features')
+			.scrollex({
+				mode: 'middle',
+				top: '-20vh',
+				bottom: '-20vh',
+				initialize: function() {
 
-		// Move to main on <=large, back to sidebar on >large.
-			breakpoints.on('<=large', function() {
-				$intro.prependTo($main);
-			});
+					// Deactivate section.
+						$(this).addClass('inactive');
 
-			breakpoints.on('>large', function() {
-				$intro.prependTo($sidebar);
+				},
+				enter: function() {
+
+					// Activate section.
+						$(this).removeClass('inactive');
+
+				}
 			});
 
 })(jQuery);

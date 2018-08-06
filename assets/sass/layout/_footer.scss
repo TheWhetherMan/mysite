@@ -1,5 +1,5 @@
 ///
-/// Future Imperfect by HTML5 UP
+/// Hyperspace by HTML5 UP
 /// html5up.net | @ajlkn
 /// Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 ///
@@ -7,20 +7,32 @@
 /* Footer */
 
 	#footer {
-		.icons {
-			color: _palette(fg-light);
+		#sidebar + #wrapper + & {
+			margin-left: _size(sidebar-width);
+
+			@include breakpoint('<=large') {
+				margin-left: 0;
+			}
 		}
 
-		.copyright {
-			color: _palette(fg-light);
-			font-family: _font(family-heading);
-			font-size: 0.5em;
-			font-weight: _font(weight-heading);
-			letter-spacing: _font(kerning-heading);
-			text-transform: uppercase;
+		> .inner {
+			a {
+				border-bottom-color: _palette(border);
+
+				&:hover {
+					border-bottom-color: transparent;
+				}
+			}
+
+			.menu {
+				font-size: 0.8em;
+				color: _palette(border);
+			}
 		}
 
-		body.single & {
-			text-align: center;
+		#header + #wrapper + & {
+			> .inner {
+				margin: 0 auto;
+			}
 		}
 	}
