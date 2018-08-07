@@ -1,3 +1,2 @@
-# My Site
+# MySite
 
-Something very interesting
