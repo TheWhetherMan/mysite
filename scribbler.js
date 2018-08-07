@@ -12,8 +12,8 @@ var getAll = function (selector, scope) {
 // setup typewriter effect in the terminal demo
 if (document.getElementsByClassName('demo').length > 0) {
   var i = 0;
-  var charSpeed = 25;
-  var spaceSpeed = 35;
+  var charSpeed = 15;
+  var newlineSpeed = 150;
 
   var txt = `aboutMe -go
   
@@ -30,8 +30,8 @@ if (document.getElementsByClassName('demo').length > 0) {
       document.getElementsByClassName('demo')[0].innerHTML += txt.charAt(i);
       i++;
 
-      if (txt.charAt(i) == " ") {
-        setTimeout(typeItOut, spaceSpeed);
+      if (txt.charAt(i) == "\n") {
+        setTimeout(typeItOut, newlineSpeed);
       }
       else {
         setTimeout(typeItOut, charSpeed);
