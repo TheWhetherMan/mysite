@@ -21,6 +21,10 @@ html, body {
   background-color: white;
 }
 
+strong {
+   font-weight: bold; 
+}
+
 p {
   font-weight: 300;
   color: #4A4A4A;
@@ -32,9 +36,9 @@ a, a:hover {
 }
 
 hr {
-  padding: 1rem 0;
+  padding: 0.25rem 0;
   border: 0;
-  border-bottom: 1px solid var(--bg-color);
+  border-bottom: 4px solid var(--bg-color);
 }
 
 * {
