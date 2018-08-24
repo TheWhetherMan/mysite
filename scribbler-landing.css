@@ -118,7 +118,7 @@ nav {
 /* callout section */
 .callout {
   text-align: center;
-  padding: 1rem 0 3rem 0;
+  padding: 1rem 0 1rem 0;
 }
 
 .callout .button--primary {
@@ -130,6 +130,20 @@ nav {
 .changelog {
   background-color: var(--bg-color);
   padding: 2rem 0;
+}
+
+.changelog_color_only {
+  background-color: var(--bg-color);
+}
+
+.changelog_no_lower_pad {
+  background-color: var(--bg-color);
+  padding-top: 1rem;
+}
+
+.changelog_no_upper_pad {
+  background-color: var(--bg-color);
+  padding-bottom: 3rem;
 }
 
 .changelog__item {
