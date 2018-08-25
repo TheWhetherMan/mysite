@@ -7,12 +7,27 @@ html, body {
 /* layout */
 .header {
   border-bottom: 1px solid var(--code-bg-color);
-  grid-template-columns: 1fr 150px 60% 1fr;
+  grid-template-columns: 1fr 250px 45% 1fr;
 }
 
 .wrapper {
   display: flex;
   flex-grow: 1;
+}
+
+.polaroid_single {
+    width: 80%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 3rem;
+    margin-top: 2rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+  
+.container {
+    text-align: center;
+    padding: 5px 20px;
 }
 
 /* logo */
