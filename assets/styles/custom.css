@@ -1,0 +1,21 @@
+
+.proj_alignleft {
+    float: left;
+    color: black;
+    font-size: larger;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.proj_align_right_done {
+    float: right;
+    margin-right: 10px;
+    color: green;
+}
+
+.proj_align_right_wip {
+    float: right;
+    margin-right: 10px;
+    color: gray;
+    font-weight: bold;
+}
