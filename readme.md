@@ -1,3 +1,1 @@
-# My personal website (WIP)
-
-## czach.io
+# My personal website (OLD)
